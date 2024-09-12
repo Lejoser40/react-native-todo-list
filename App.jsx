@@ -31,7 +31,20 @@ export default function App() {
     setPrueba(prueba + 1);
     // console.log(prueba);
     textInput.current.blur();
+    textInput.current.clear();
   };
+
+  const deleteTodo = (todoId) => {
+    setTasks((updateTa) => updateTa.filter((item) => item.id !== todoId));
+
+    // let ta = [...tasks];
+    // console.log(ta);
+    // ta = ta.filter((item) => item.id !== todoId);
+    // console.log(ta);
+    // setTasks(ta);
+  };
+
+  const editTodo = () => {};
 
   return (
     <>
@@ -43,7 +56,6 @@ export default function App() {
             style={styles.textBox}
             placeholder="To do"
             onChangeText={(text) => setTask(text)}
-            value={task}
             ref={textInput}
           />
           <View>
@@ -74,7 +86,9 @@ export default function App() {
             <FlatList
               data={tasks}
               keyExtractor={(ta) => ta.id}
-              renderItem={({ item }) => <TodoCard todo={item}></TodoCard>}
+              renderItem={({ item }) => (
+                <TodoCard todo={item} func={deleteTodo}></TodoCard>
+              )}
               showsVerticalScrollIndicator={false}
             ></FlatList>
           </View>
