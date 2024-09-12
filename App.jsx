@@ -37,6 +37,7 @@ export default function App() {
   const deleteTodo = (todoId) => {
     setTasks((updateTa) => updateTa.filter((item) => item.id !== todoId));
 
+    //aaaa
     // let ta = [...tasks];
     // console.log(ta);
     // ta = ta.filter((item) => item.id !== todoId);
