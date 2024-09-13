@@ -17,9 +17,19 @@ export default function App() {
   const [task, setTask] = useState("");
   const [prueba, setPrueba] = useState(0);
   const textInput = useRef(null);
+  const [editIndex, setIndex] = useState(-1);
 
   const addTodo = () => {
+    // console.log(editIndex);
     if (!task) return;
+    if (editIndex === -1) {
+      addMode();
+      return;
+    }
+    editMode();
+  };
+
+  const addMode = () => {
     setTasks([
       ...tasks,
       {
@@ -30,6 +40,19 @@ export default function App() {
     setTask("");
     setPrueba(prueba + 1);
     // console.log(prueba);
+    clearInput();
+  };
+
+  const editMode = () => {
+    const update = tasks;
+    // console.log(update);
+    update[editIndex].text = task;
+    setTasks(update);
+    setIndex(-1);
+    clearInput();
+  };
+
+  const clearInput = () => {
     textInput.current.blur();
     textInput.current.clear();
   };
@@ -45,7 +68,14 @@ export default function App() {
     // setTasks(ta);
   };
 
-  const editTodo = () => {};
+  const editTodo = (todoId) => {
+    const index = tasks.findIndex((item) => item.id === todoId);
+    const updateTa = tasks[index];
+    textInput.current.setNativeProps({ text: `${updateTa.text}` });
+    // setTask(updateTa.text);
+    setIndex(index);
+    // console.log(editIndex);
+  };
 
   return (
     <>
@@ -88,7 +118,11 @@ export default function App() {
               data={tasks}
               keyExtractor={(ta) => ta.id}
               renderItem={({ item }) => (
-                <TodoCard todo={item} func={deleteTodo}></TodoCard>
+                <TodoCard
+                  todo={item}
+                  funcDelete={deleteTodo}
+                  funcEdit={editTodo}
+                ></TodoCard>
               )}
               showsVerticalScrollIndicator={false}
             ></FlatList>

@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-export default function TodoCard({ todo, func }) {
+export default function TodoCard({ todo, funcDelete, funcEdit }) {
   return (
     <View style={styles.box}>
       <Text style={{ margin: 15 }}>{todo.text}</Text>
@@ -9,7 +9,7 @@ export default function TodoCard({ todo, func }) {
         style={({ pressed }) => [
           {
             backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD",
-            width: 60,
+            width: 50,
             height: 40,
             borderRadius: 4,
             justifyContent: "center",
@@ -17,7 +17,23 @@ export default function TodoCard({ todo, func }) {
             margin: 0,
           },
         ]}
-        onPress={() => func(todo.id)}
+        onPress={() => funcEdit(todo.id)}
+      >
+        <Text>Edit</Text>
+      </Pressable>
+      <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD",
+            width: 50,
+            height: 40,
+            borderRadius: 4,
+            justifyContent: "center",
+            alignItems: "center",
+            margin: 0,
+          },
+        ]}
+        onPress={() => funcDelete(todo.id)}
       >
         <Text>Delete</Text>
       </Pressable>
