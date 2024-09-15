@@ -1,42 +1,56 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 export default function TodoCard({ todo, funcDelete, funcEdit }) {
   return (
     <View style={styles.box}>
-      <Text style={{ margin: 15 }}>{todo.text}</Text>
-      <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD",
-            width: 50,
-            height: 40,
-            borderRadius: 4,
-            justifyContent: "center",
-            alignItems: "center",
-            margin: 0,
-          },
-        ]}
-        onPress={() => funcEdit(todo.id)}
+      <View style={{ display: "block", width: 200 }}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <Text style={{ margin: 15 }}>{todo.text}</Text>
+        </ScrollView>
+      </View>
+      <View
+        style={{
+          display: "block",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          position: "absolute",
+          right: 5,
+        }}
       >
-        <Text>Edit</Text>
-      </Pressable>
-      <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD",
-            width: 50,
-            height: 40,
-            borderRadius: 4,
-            justifyContent: "center",
-            alignItems: "center",
-            margin: 0,
-          },
-        ]}
-        onPress={() => funcDelete(todo.id)}
-      >
-        <Text>Delete</Text>
-      </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD",
+              width: 50,
+              height: 40,
+              borderRadius: 4,
+              justifyContent: "center",
+              alignItems: "center",
+              marginRight: 5,
+            },
+          ]}
+          onPress={() => funcEdit(todo.id)}
+        >
+          <Text>Edit</Text>
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD",
+              width: 50,
+              height: 40,
+              borderRadius: 4,
+              justifyContent: "center",
+              alignItems: "center",
+              marginLeft: 5,
+            },
+          ]}
+          onPress={() => funcDelete(todo.id)}
+        >
+          <Text>Delete</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -45,7 +59,7 @@ const styles = StyleSheet.create({
   box: {
     flex: 1,
     height: 50,
-    width: 300,
+    width: 350,
     backgroundColor: "white",
     margin: 10,
     justifyContent: "center",

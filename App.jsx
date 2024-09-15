@@ -83,18 +83,18 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <View style={styles.box}>
           <Text style={{ fontSize: 30, fontWeight: "bold" }}>To-do App</Text>
-          <TextInput
-            style={styles.textBox}
-            placeholder="To do"
-            onChangeText={(text) => setTask(text)}
-            ref={textInput}
-          />
-          <View>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <TextInput
+              style={styles.textBox}
+              placeholder="To do"
+              onChangeText={(text) => setTask(text)}
+              ref={textInput}
+            />
             <Pressable
               style={({ pressed }) => [
                 {
                   backgroundColor: pressed ? "grey" : "black",
-                  width: 300,
+                  width: 350,
                   height: 40,
                   borderRadius: 4,
                   justifyContent: "center",
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   textBox: {
     height: 50,
-    width: 300,
+    width: 350,
     paddingHorizontal: 32,
     borderStyle: "solid",
     borderWidth: 1,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   Button: {
-    width: 300,
+    width: 350,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "black",
