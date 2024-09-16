@@ -1,4 +1,11 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 
 export default function TodoCard({ todo, funcDelete, funcEdit }) {
@@ -6,7 +13,7 @@ export default function TodoCard({ todo, funcDelete, funcEdit }) {
     <View style={styles.box}>
       <View style={{ display: "block", width: 200 }}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <Text style={{ margin: 15 }}>{todo.text}</Text>
+          <Text style={{ margin: 10 }}>{todo.text}</Text>
         </ScrollView>
       </View>
       <View

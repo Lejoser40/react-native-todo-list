@@ -9,6 +9,8 @@ import {
   TextInput,
   View,
   Dimensions,
+  Modal,
+  Button,
 } from "react-native";
 import TodoCard from "./components/TodoCard";
 
@@ -19,8 +21,11 @@ export default function App() {
   const textInput = useRef(null);
   const [editIndex, setIndex] = useState(-1);
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const addTodo = () => {
     // console.log(editIndex);
+    setModalVisible(false);
     if (!task) return;
     if (editIndex === -1) {
       addMode();
@@ -68,7 +73,8 @@ export default function App() {
     // setTasks(ta);
   };
 
-  const editTodo = (todoId) => {
+  const editTodo = async (todoId) => {
+    await setModalVisible(true);
     const index = tasks.findIndex((item) => item.id === todoId);
     const updateTa = tasks[index];
     textInput.current.setNativeProps({ text: `${updateTa.text}` });
@@ -79,33 +85,10 @@ export default function App() {
 
   return (
     <>
-      <StatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
+      <StatusBar barStyle={"default"} backgroundColor={"#fff"} />
       <SafeAreaView style={styles.container}>
         <View style={styles.box}>
           <Text style={{ fontSize: 30, fontWeight: "bold" }}>To-do App</Text>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <TextInput
-              style={styles.textBox}
-              placeholder="To do"
-              onChangeText={(text) => setTask(text)}
-              ref={textInput}
-            />
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed ? "grey" : "black",
-                  width: 350,
-                  height: 40,
-                  borderRadius: 4,
-                  justifyContent: "center",
-                  alignItems: "center",
-                },
-              ]}
-              onPress={addTodo}
-            >
-              <Text style={styles.text}>Add</Text>
-            </Pressable>
-          </View>
           <View
             style={{
               height: height * 0.6,
@@ -127,13 +110,75 @@ export default function App() {
               showsVerticalScrollIndicator={false}
             ></FlatList>
           </View>
+          <Button
+            onPress={() => setModalVisible(true)}
+            title="Agregar"
+          ></Button>
         </View>
+        <Modal
+          visible={modalVisible}
+          transparent={true}
+          animationType="slide"
+          presentationStyle="overFullScreen"
+        >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "transparent",
+              padding: 60,
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "white",
+                height: "57%",
+                width: width,
+                borderRadius: 10,
+                shadowColor: "lightgrey",
+                shadowOffset: { width: 0, height: -20 },
+                shadowOpacity: 1,
+                shadowRadius: 10,
+              }}
+            >
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <TextInput
+                  style={styles.textBox}
+                  placeholder="To do"
+                  onChangeText={(text) => setTask(text)}
+                  ref={textInput}
+                  autoFocus
+                />
+                <Pressable
+                  style={({ pressed }) => [
+                    {
+                      backgroundColor: pressed ? "grey" : "black",
+                      width: 350,
+                      height: 40,
+                      borderRadius: 4,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    },
+                  ]}
+                  onPress={addTodo}
+                >
+                  <Text style={styles.text}>Add</Text>
+                </Pressable>
+              </View>
+              {/* <Button
+                onPress={() => setModalVisible(false)}
+                title="close"
+              ></Button> */}
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     </>
   );
 }
 
-const { height } = Dimensions.get("window");
+const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
