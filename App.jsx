@@ -13,6 +13,7 @@ import {
   Button,
 } from "react-native";
 import TodoCard from "./components/TodoCard";
+import BottomSheet from "./components/BottomSheet";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
@@ -23,18 +24,18 @@ export default function App() {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const addTodo = () => {
+  const handdleClick = () => {
     // console.log(editIndex);
     setModalVisible(false);
     if (!task) return;
     if (editIndex === -1) {
-      addMode();
+      addTodo();
       return;
     }
-    editMode();
+    editTodo();
   };
 
-  const addMode = () => {
+  const addTodo = () => {
     setTasks([
       ...tasks,
       {
@@ -48,18 +49,21 @@ export default function App() {
     clearInput();
   };
 
-  const editMode = () => {
+  const editTodo = () => {
     const update = tasks;
     // console.log(update);
     update[editIndex].text = task;
     setTasks(update);
+    setTask("");
     setIndex(-1);
     clearInput();
   };
 
   const clearInput = () => {
-    textInput.current.blur();
-    textInput.current.clear();
+    if (textInput.current) {
+      textInput.current.clear();
+      textInput.current.blur();
+    }
   };
 
   const deleteTodo = (todoId) => {
@@ -73,13 +77,14 @@ export default function App() {
     // setTasks(ta);
   };
 
-  const editTodo = async (todoId) => {
+  const setTodoForEdit = async (todoId) => {
     await setModalVisible(true);
     const index = tasks.findIndex((item) => item.id === todoId);
-    const updateTa = tasks[index];
-    textInput.current.setNativeProps({ text: `${updateTa.text}` });
-    // setTask(updateTa.text);
     setIndex(index);
+    const updateTa = tasks[index];
+    setTask(updateTa.text);
+    // input.current.setNativeProps({ text: `${updateTa.text}` });
+
     // console.log(editIndex);
   };
 
@@ -104,7 +109,7 @@ export default function App() {
                 <TodoCard
                   todo={item}
                   funcDelete={deleteTodo}
-                  funcEdit={editTodo}
+                  funcEdit={setTodoForEdit}
                 ></TodoCard>
               )}
               showsVerticalScrollIndicator={false}
@@ -115,64 +120,14 @@ export default function App() {
             title="Agregar"
           ></Button>
         </View>
-        <Modal
-          visible={modalVisible}
-          transparent={true}
-          animationType="slide"
-          presentationStyle="overFullScreen"
-        >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "transparent",
-              padding: 60,
-              justifyContent: "flex-end",
-              alignItems: "center",
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: "white",
-                height: "57%",
-                width: width,
-                borderRadius: 10,
-                shadowColor: "lightgrey",
-                shadowOffset: { width: 0, height: -20 },
-                shadowOpacity: 1,
-                shadowRadius: 10,
-              }}
-            >
-              <View style={{ justifyContent: "center", alignItems: "center" }}>
-                <TextInput
-                  style={styles.textBox}
-                  placeholder="To do"
-                  onChangeText={(text) => setTask(text)}
-                  ref={textInput}
-                  autoFocus
-                />
-                <Pressable
-                  style={({ pressed }) => [
-                    {
-                      backgroundColor: pressed ? "grey" : "black",
-                      width: 350,
-                      height: 40,
-                      borderRadius: 4,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    },
-                  ]}
-                  onPress={addTodo}
-                >
-                  <Text style={styles.text}>Add</Text>
-                </Pressable>
-              </View>
-              {/* <Button
-                onPress={() => setModalVisible(false)}
-                title="close"
-              ></Button> */}
-            </View>
-          </View>
-        </Modal>
+        <BottomSheet
+          width={width}
+          modalVisible={modalVisible}
+          setTask={setTask}
+          TextInput={textInput}
+          click={handdleClick}
+          task={task}
+        ></BottomSheet>
       </SafeAreaView>
     </>
   );
