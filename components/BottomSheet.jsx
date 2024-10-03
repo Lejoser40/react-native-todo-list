@@ -5,17 +5,17 @@ import {
   Modal,
   Pressable,
   TextInput,
+  useWindowDimensions,
 } from "react-native";
-import React from "react";
+import { React, useCallback } from "react";
 
-const BottomSheet = ({
-  width,
-  modalVisible,
-  setTask,
-  textInput,
-  click,
-  task,
-}) => {
+const BottomSheet = ({ modalVisible, setTask, textInput, click, task }) => {
+  const { height, width } = useWindowDimensions();
+
+  // const getInputValue = () => {
+  //   return textInput.current.value;
+  // };
+
   return (
     <Modal
       visible={modalVisible}
@@ -25,36 +25,25 @@ const BottomSheet = ({
     >
       <View style={styles.modal}>
         <View
-          style={{
-            backgroundColor: "white",
-            height: "57%",
-            width: width,
-            borderRadius: 10,
-            shadowColor: "lightgrey",
-            shadowOffset: { width: 0, height: -20 },
-            shadowOpacity: 1,
-            shadowRadius: 10,
-          }}
+          style={[
+            styles.bottomSheet,
+            { shadowOffset: { width: 0, height: -20 } },
+            { width: width },
+          ]}
         >
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <TextInput
               style={styles.textBox}
               placeholder="To do"
-              onChangeText={(text) => setTask(text)}
-              ref={textInput}
+              // ref={textInput}
+              onChangeText={setTask}
               value={task}
               autoFocus
             />
             <Pressable
               style={({ pressed }) => [
-                {
-                  backgroundColor: pressed ? "grey" : "black",
-                  width: 350,
-                  height: 40,
-                  borderRadius: 4,
-                  justifyContent: "center",
-                  alignItems: "center",
-                },
+                styles.button,
+                { backgroundColor: pressed ? "grey" : "black" },
               ]}
               onPress={click}
             >
@@ -74,6 +63,14 @@ const BottomSheet = ({
 export default BottomSheet;
 
 const styles = StyleSheet.create({
+  bottomSheet: {
+    backgroundColor: "white",
+    height: "57%",
+    borderRadius: 10,
+    shadowColor: "lightgrey",
+    shadowOpacity: 1,
+    shadowRadius: 10,
+  },
   textBox: {
     height: 50,
     width: 350,
@@ -95,6 +92,13 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     padding: 60,
     justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  button: {
+    width: 350,
+    height: 40,
+    borderRadius: 4,
+    justifyContent: "center",
     alignItems: "center",
   },
 });

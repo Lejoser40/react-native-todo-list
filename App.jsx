@@ -11,9 +11,12 @@ import {
   Dimensions,
   Modal,
   Button,
+  useWindowDimensions,
 } from "react-native";
 import TodoCard from "./components/TodoCard";
 import BottomSheet from "./components/BottomSheet";
+import FloatingBtn from "./components/FloatingActionBtn";
+import Editmodal from "./components/Editmodal";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
@@ -23,9 +26,13 @@ export default function App() {
   const [editIndex, setIndex] = useState(-1);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+
+  const { height, width } = useWindowDimensions();
 
   const handdleClick = () => {
     // console.log(editIndex);
+    // setTask(value);
     setModalVisible(false);
     if (!task) return;
     if (editIndex === -1) {
@@ -88,20 +95,15 @@ export default function App() {
     // console.log(editIndex);
   };
 
+  const openModal = (todoId = {});
+
   return (
     <>
       <StatusBar barStyle={"default"} backgroundColor={"#fff"} />
       <SafeAreaView style={styles.container}>
         <View style={styles.box}>
           <Text style={{ fontSize: 30, fontWeight: "bold" }}>To-do App</Text>
-          <View
-            style={{
-              height: height * 0.6,
-              justifyContent: "space-between",
-              backgroundColor: "#fff",
-              margin: 10,
-            }}
-          >
+          <View style={[styles.flatListBox, { height: height * 0.8 }]}>
             <FlatList
               data={tasks}
               keyExtractor={(ta) => ta.id}
@@ -110,15 +112,17 @@ export default function App() {
                   todo={item}
                   funcDelete={deleteTodo}
                   funcEdit={setTodoForEdit}
+                  openModal={setModalVisible2}
                 ></TodoCard>
               )}
               showsVerticalScrollIndicator={false}
             ></FlatList>
           </View>
-          <Button
+          {/* <Button
             onPress={() => setModalVisible(true)}
             title="Agregar"
-          ></Button>
+          ></Button> */}
+          <FloatingBtn modalVisible={setModalVisible}></FloatingBtn>
         </View>
         <BottomSheet
           width={width}
@@ -128,12 +132,15 @@ export default function App() {
           click={handdleClick}
           task={task}
         ></BottomSheet>
+        <Button title="prueba" onPress={() => setModalVisible2(true)}></Button>
+        <Editmodal
+          visible={modalVisible2}
+          setModalVisible={setModalVisible2}
+        ></Editmodal>
       </SafeAreaView>
     </>
   );
 }
-
-const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -177,5 +184,10 @@ const styles = StyleSheet.create({
   },
   todos: {
     marginTop: 10,
+  },
+  flatListBox: {
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    margin: 10,
   },
 });
