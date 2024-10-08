@@ -11,7 +11,14 @@ import React, { useState } from "react";
 import GestureRecognizer from "react-native-swipe-gestures";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-export default function Editmodal({ visible, setModalVisible }) {
+export default function Editmodal({
+  visible,
+  closeModal,
+  task,
+  setTask,
+  funcDelete,
+  funcEdit,
+}) {
   const [chosenDate, setChosenDate] = useState(new Date());
 
   const [isEnabled, setIsEnabled] = useState(false);
@@ -20,7 +27,7 @@ export default function Editmodal({ visible, setModalVisible }) {
   return (
     <GestureRecognizer
       style={{ backgroundColor: "black", position: "relative" }}
-      onSwipeDown={() => setModalVisible(false)}
+      onSwipeDown={() => closeModal()}
     >
       <Modal
         visible={visible}
@@ -37,6 +44,8 @@ export default function Editmodal({ visible, setModalVisible }) {
         >
           <TextInput
             placeholder="todo"
+            value={task}
+            onChangeText={setTask}
             style={{
               height: 50,
               width: 350,
@@ -63,14 +72,7 @@ export default function Editmodal({ visible, setModalVisible }) {
                 styles.buttom,
                 { backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD" },
               ]}
-            >
-              <Text>Editar</Text>
-            </Pressable>
-            <Pressable
-              style={({ pressed }) => [
-                styles.buttom,
-                { backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD" },
-              ]}
+              onPress={() => funcDelete()}
             >
               <Text>Eliminar</Text>
             </Pressable>

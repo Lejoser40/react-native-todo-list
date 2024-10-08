@@ -8,38 +8,16 @@ import {
 } from "react-native";
 import React from "react";
 
-export default function TodoCard({ todo, funcDelete, funcEdit, openModal }) {
+export default function TodoCard({ todo, openModal }) {
   return (
-    <Pressable
-      style={{ backgroundColor: "black" }}
-      onPress={() => openModal(true)}
-    >
+    <Pressable onPress={() => openModal(todo.id)}>
       <View style={styles.box}>
         <View style={{ display: "block", width: 200 }}>
           {/* <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         </ScrollView> */}
           <Text style={{ margin: 10 }}>{todo.text}</Text>
         </View>
-        <View style={styles.box2}>
-          <Pressable
-            style={({ pressed }) => [
-              styles.buttom,
-              { backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD" },
-            ]}
-            onPress={() => funcEdit(todo.id)}
-          >
-            <Text>Edit</Text>
-          </Pressable>
-          <Pressable
-            style={({ pressed }) => [
-              styles.buttom,
-              { backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD" },
-            ]}
-            onPress={() => funcDelete(todo.id)}
-          >
-            <Text>Delete</Text>
-          </Pressable>
-        </View>
+        <View style={styles.box2}></View>
       </View>
     </Pressable>
   );

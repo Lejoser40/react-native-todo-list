@@ -16,7 +16,7 @@ import {
 import TodoCard from "./components/TodoCard";
 import BottomSheet from "./components/BottomSheet";
 import FloatingBtn from "./components/FloatingActionBtn";
-import Editmodal from "./components/TodoModal";
+import Editmodal from "./components/Editmodal";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
@@ -24,7 +24,6 @@ export default function App() {
   const [prueba, setPrueba] = useState(0);
   const textInput = useRef(null);
   const [editIndex, setIndex] = useState(-1);
-  const [tempId, setTempId] = useState(0);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
@@ -36,7 +35,11 @@ export default function App() {
     // setTask(value);
     setModalVisible(false);
     if (!task) return;
-    addTodo();
+    if (editIndex === -1) {
+      addTodo();
+      return;
+    }
+    editTodo();
   };
 
   const addTodo = () => {
@@ -70,11 +73,8 @@ export default function App() {
     }
   };
 
-  const deleteTodo = () => {
-    setModalVisible2(false);
-    setTasks((updateTa) => updateTa.filter((item) => item.id !== tempId));
-    setTask("");
-    setTempId(0);
+  const deleteTodo = (todoId) => {
+    setTasks((updateTa) => updateTa.filter((item) => item.id !== todoId));
 
     //aaaa
     // let ta = [...tasks];
@@ -85,7 +85,7 @@ export default function App() {
   };
 
   const setTodoForEdit = async (todoId) => {
-    // await setModalVisible(true);
+    await setModalVisible(true);
     const index = tasks.findIndex((item) => item.id === todoId);
     setIndex(index);
     const updateTa = tasks[index];
@@ -95,17 +95,7 @@ export default function App() {
     // console.log(editIndex);
   };
 
-  const openModal = (todoId) => {
-    setTempId(todoId);
-    setTodoForEdit(todoId);
-    setModalVisible2(true);
-  };
-
-  const closeModal = () => {
-    setTask("");
-    setModalVisible2(false);
-    editTodo();
-  };
+  const openModal = (todoId) => {};
 
   return (
     <>
@@ -118,7 +108,12 @@ export default function App() {
               data={tasks}
               keyExtractor={(ta) => ta.id}
               renderItem={({ item }) => (
-                <TodoCard todo={item} openModal={openModal}></TodoCard>
+                <TodoCard
+                  todo={item}
+                  funcDelete={deleteTodo}
+                  funcEdit={setTodoForEdit}
+                  openModal={setModalVisible2}
+                ></TodoCard>
               )}
               showsVerticalScrollIndicator={false}
             ></FlatList>
@@ -137,13 +132,10 @@ export default function App() {
           click={handdleClick}
           task={task}
         ></BottomSheet>
+        <Button title="prueba" onPress={() => setModalVisible2(true)}></Button>
         <Editmodal
           visible={modalVisible2}
-          closeModal={closeModal}
-          task={task}
-          setTask={setTask}
-          funcEdit={editTodo}
-          funcDelete={deleteTodo}
+          setModalVisible={setModalVisible2}
         ></Editmodal>
       </SafeAreaView>
     </>
