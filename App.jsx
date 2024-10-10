@@ -45,6 +45,7 @@ export default function App() {
       {
         id: prueba,
         text: task,
+        completed: false,
       },
     ]);
     setTask("");
@@ -95,6 +96,15 @@ export default function App() {
     // console.log(editIndex);
   };
 
+  const changeCompletedTodo = (todoId) => {
+    const index = tasks.findIndex((item) => item.id === todoId);
+    setTasks((prevState) => {
+      const updatedTasks = [...prevState];
+      updatedTasks[index].completed = !updatedTasks[index].completed;
+      return updatedTasks;
+    });
+  };
+
   const openModal = (todoId) => {
     setTempId(todoId);
     setTodoForEdit(todoId);
@@ -118,7 +128,11 @@ export default function App() {
               data={tasks}
               keyExtractor={(ta) => ta.id}
               renderItem={({ item }) => (
-                <TodoCard todo={item} openModal={openModal}></TodoCard>
+                <TodoCard
+                  todo={item}
+                  openModal={openModal}
+                  changeCompletedTodo={changeCompletedTodo}
+                ></TodoCard>
               )}
               showsVerticalScrollIndicator={false}
             ></FlatList>
@@ -136,6 +150,7 @@ export default function App() {
           TextInput={textInput}
           click={handdleClick}
           task={task}
+          setModalVisible={setModalVisible}
         ></BottomSheet>
         <Editmodal
           visible={modalVisible2}

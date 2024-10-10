@@ -25,68 +25,36 @@ export default function Editmodal({
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   return (
-    <GestureRecognizer
-      style={{ backgroundColor: "black", position: "relative" }}
-      onSwipeDown={() => closeModal()}
-    >
-      <Modal
-        visible={visible}
-        animationType="slide"
-        presentationStyle="formSheet"
-      >
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            alignItems: "center",
-            backgroundColor: "white",
-          }}
+    <>
+      <GestureRecognizer style={{}} onSwipeDown={() => closeModal()}>
+        <Modal
+          visible={visible}
+          animationType="slide"
+          presentationStyle="formSheet"
         >
-          <TextInput
-            placeholder="todo"
-            value={task}
-            onChangeText={setTask}
-            style={{
-              height: 50,
-              width: 350,
-              paddingHorizontal: 32,
-              borderStyle: "solid",
-              borderWidth: 1,
-              margin: 10,
-              borderRadius: 4,
-              marginTop: 50,
-            }}
-          ></TextInput>
           <View
             style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
+              flex: 1,
+              justifyContent: "flex-start",
               alignItems: "center",
-              position: "",
-              margin: 10,
+              backgroundColor: "white",
             }}
           >
-            <Pressable
-              style={({ pressed }) => [
-                styles.buttom,
-                { backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD" },
-              ]}
-              onPress={() => funcDelete()}
-            >
-              <Text>Eliminar</Text>
-            </Pressable>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              position: "",
-              margin: 20,
-            }}
-          >
+            <TextInput
+              placeholder="todo"
+              value={task}
+              onChangeText={setTask}
+              style={{
+                height: 50,
+                width: 350,
+                paddingHorizontal: 32,
+                borderStyle: "solid",
+                borderWidth: 1,
+                margin: 10,
+                borderRadius: 4,
+                marginTop: 50,
+              }}
+            ></TextInput>
             <View
               style={{
                 display: "flex",
@@ -94,11 +62,18 @@ export default function Editmodal({
                 justifyContent: "center",
                 alignItems: "center",
                 position: "",
-                margin: 5,
+                margin: 10,
               }}
             >
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>Time:</Text>
-              <DateTimePicker value={chosenDate} mode="time"></DateTimePicker>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.buttom,
+                  { backgroundColor: pressed ? "#EAEAEA" : "#CDCDCD" },
+                ]}
+                onPress={() => funcDelete()}
+              >
+                <Text>Eliminar</Text>
+              </Pressable>
             </View>
             <View
               style={{
@@ -107,35 +82,61 @@ export default function Editmodal({
                 justifyContent: "center",
                 alignItems: "center",
                 position: "",
+                margin: 20,
+              }}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "",
+                  margin: 5,
+                }}
+              >
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>Time:</Text>
+                <DateTimePicker value={chosenDate} mode="time"></DateTimePicker>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "",
+                  margin: 5,
+                }}
+              >
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>Date:</Text>
+                <DateTimePicker value={chosenDate} mode="date"></DateTimePicker>
+              </View>
+            </View>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                position: "",
                 margin: 5,
               }}
             >
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>Date:</Text>
-              <DateTimePicker value={chosenDate} mode="date"></DateTimePicker>
+              <Text
+                style={{ fontSize: 20, fontWeight: "bold", marginRight: 20 }}
+              >
+                Reminder:
+              </Text>
+              <Switch
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+                style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
+              ></Switch>
             </View>
           </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              position: "",
-              margin: 5,
-            }}
-          >
-            <Text style={{ fontSize: 20, fontWeight: "bold", marginRight: 20 }}>
-              Reminder:
-            </Text>
-            <Switch
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-              style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
-            ></Switch>
-          </View>
-        </View>
-      </Modal>
-    </GestureRecognizer>
+        </Modal>
+      </GestureRecognizer>
+    </>
   );
 }
 

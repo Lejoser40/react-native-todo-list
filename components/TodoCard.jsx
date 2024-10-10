@@ -6,16 +6,47 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import { React, useState } from "react";
+import Checkbox from "expo-checkbox";
 
-export default function TodoCard({ todo, openModal }) {
+export default function TodoCard({ todo, openModal, changeCompletedTodo }) {
+  // const [isChecked, setChecked] = useState(false);
+
   return (
     <Pressable onPress={() => openModal(todo.id)}>
       <View style={styles.box}>
-        <View style={{ display: "block", width: 200 }}>
-          {/* <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        </ScrollView> */}
-          <Text style={{ margin: 10 }}>{todo.text}</Text>
+        <View
+          style={{
+            display: "block",
+            width: 200,
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "start",
+          }}
+        >
+          <Checkbox
+            color={"black"}
+            style={{
+              height: 23,
+              width: 23,
+              borderRadius: 8,
+              borderColor: "black",
+            }}
+            value={todo.completed}
+            onValueChange={() => changeCompletedTodo(todo.id)}
+          />
+          <Text
+            style={{
+              fontSize: 17,
+              letterSpacing: 3,
+              marginLeft: 30,
+              color: todo.completed ? "lightgrey" : "black",
+              textDecorationLine: todo.completed ? "line-through" : "none",
+            }}
+          >
+            {todo.text}
+          </Text>
         </View>
         <View style={styles.box2}></View>
       </View>

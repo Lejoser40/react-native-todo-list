@@ -9,7 +9,14 @@ import {
 } from "react-native";
 import { React, useCallback } from "react";
 
-const BottomSheet = ({ modalVisible, setTask, textInput, click, task }) => {
+const BottomSheet = ({
+  modalVisible,
+  setTask,
+  textInput,
+  click,
+  task,
+  setModalVisible,
+}) => {
   const { height, width } = useWindowDimensions();
 
   // const getInputValue = () => {
@@ -24,6 +31,14 @@ const BottomSheet = ({ modalVisible, setTask, textInput, click, task }) => {
       presentationStyle="overFullScreen"
     >
       <View style={styles.modal}>
+        <Pressable
+          onPress={() => setModalVisible(false)}
+          style={{
+            height: height,
+            width: width,
+            backgroundColor: "transparent",
+          }}
+        ></Pressable>
         <View
           style={[
             styles.bottomSheet,
