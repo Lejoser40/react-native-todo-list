@@ -3,9 +3,9 @@
 A simple Todo List made in React Native
 
 ## Demo
-<p align="center">
-  https://github.com/user-attachments/assets/03865ffd-3fe8-42a2-9da6-d3c383fdf558
-</p>
+<div align="center">
+https://github.com/user-attachments/assets/d4f5fee8-70dd-450f-be9b-19ee3dbf20cc
+</div>
 
 
 ## Run Locally
