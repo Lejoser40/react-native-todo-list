@@ -5,7 +5,7 @@ A simple Todo List made in React Native
 ## Demo
 
 <div align="center" >
-  <img src="media\Demo (1).gif" align="center" />
+  <img height="400" src="media\Demo (1).gif" align="center" />
 </div>
 
 ## Run Locally
