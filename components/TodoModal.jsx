@@ -40,6 +40,18 @@ export default function Editmodal({
               backgroundColor: "white",
             }}
           >
+            <Pressable onPress={() => closeModal()}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  width: 100,
+                  height: 1,
+                  borderStyle: "solid",
+                  borderWidth: 1,
+                  marginTop: 15,
+                }}
+              ></Text>
+            </Pressable>
             <TextInput
               placeholder="todo"
               value={task}
@@ -52,7 +64,7 @@ export default function Editmodal({
                 borderWidth: 1,
                 margin: 10,
                 borderRadius: 4,
-                marginTop: 50,
+                marginTop: 30,
               }}
             ></TextInput>
             <View
