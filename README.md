@@ -2,7 +2,10 @@
 
 A simple Todo List made in React Native
 
-https://github.com/user-attachments/assets/1bdd866c-288b-455f-ac30-b9bf81ddc908
+## Demo
+<p align="center">
+  https://github.com/user-attachments/assets/03865ffd-3fe8-42a2-9da6-d3c383fdf558
+</p>
 
 
 ## Run Locally
