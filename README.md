@@ -5,9 +5,7 @@ A simple Todo List made in React Native
 ## Demo
 
 <div align="center" >
-  <video controls autoplay muted>
-    <source  src="videos\Demo.MP4" type="video/mp4" />
-  </video>
+  <img src="media\Demo (1).gif" align="center" />
 </div>
 
 ## Run Locally
