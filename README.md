@@ -3,10 +3,12 @@
 A simple Todo List made in React Native
 
 ## Demo
-<div align="center">
-https://github.com/user-attachments/assets/d4f5fee8-70dd-450f-be9b-19ee3dbf20cc
-</div>
 
+<div align="center" >
+  <video controls autoplay muted>
+    <source  src="videos\Demo.MP4" type="video/mp4" />
+  </video>
+</div>
 
 ## Run Locally
 
