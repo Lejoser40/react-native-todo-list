@@ -2,7 +2,8 @@
 
 A simple Todo List made in React Native
 
-![Demo!](videos\ScreenRecording_10-15-2024 4-46-39ΓÇ»p.┬ám.\_1.MP4)
+https://github.com/user-attachments/assets/1bdd866c-288b-455f-ac30-b9bf81ddc908
+
 
 ## Run Locally
 
