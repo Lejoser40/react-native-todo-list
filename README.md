@@ -5,7 +5,7 @@ A simple Todo List made in React Native
 ## Demo
 
 <div align="center" >
-  <img height="400" src="media\Demo (1).gif" align="center" />
+  <img height="600" src="media\Demo (1).gif" align="center" />
 </div>
 
 ## Run Locally
@@ -13,13 +13,13 @@ A simple Todo List made in React Native
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/Lejoser40/react-native-todo-list.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd react-native-todo-list
 ```
 
 Install dependencies
